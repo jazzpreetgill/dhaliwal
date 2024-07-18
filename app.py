@@ -1,22 +1,16 @@
 from pycaret.regression import load_model, predict_model
 import streamlit as st
 import pandas as pd
-
-
 model = load_model('dp_insurance_charges')
-
 # input_dict = {'age' : 20, 'sex' : 'male', 'bmi' : 20, 'children' : 2, 'smoker' : 'yes', 'region' : 'southwest'}
 # input_df = pd.DataFrame([input_dict])
 # predictions_df = predict_model(estimator=model, data=input_df)
 # predictions = predictions_df.iloc[0]['prediction_label']
 # st.markdown(predictions)
-
 def predict(model, input_df):
     predictions_df = predict_model(estimator=model, data=input_df)
     predictions = predictions_df.iloc[0]['prediction_label']
-    #prediction = int(prediction.iloc[0]['prediction_label'])
     return predictions
-
 
 age = st.number_input('Age', min_value=1, max_value=100, value=25)
 sex = st.selectbox('Sex', ['male', 'female'])
@@ -36,6 +30,5 @@ input_df = pd.DataFrame([input_dict])
 if st.button("Predict"):
     output = predict(model=model, input_df=input_df)
     output = '$' + str(output)
-
 st.success('The output is {}'.format(output))
 
